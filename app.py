@@ -39,7 +39,7 @@ class CNNGenerator(nn.Module):
 # 2. 侧边栏：工艺参数输入 (已修正温度单位为摄氏度)
 # ==========================================
 st.sidebar.header("🎛️ 工艺参数设置")
-T1 = st.sidebar.slider("加热区温度 T1 (℃)", min_value=700.0, max_value=900.0, value=800.0, step=1.0)
+T1 = st.sidebar.slider("加热区温度 T1 (K)", min_value=700.0, max_value=900.0, value=800.0, step=1.0)
 m_inlet = st.sidebar.slider("入口质量流率 (kg/s)", min_value=1.3e-5, max_value=1.973e-5, value=1.5e-5, step=1.0e-7, format="%.2e")
 p0 = st.sidebar.slider("出口压力 p0 (Pa)", min_value=10.0, max_value=100.0, value=50.0, step=1.0)
 
@@ -95,7 +95,7 @@ try:
     
     # 预测平均沉积速率
     avg_rate_pred = rf_rate.predict(X_scaled)[0]
-    st.success(f"**⚡ 预测平均沉积速率:**  `{avg_rate_pred:.4e}` m/s")
+    st.success(f"**⚡ 预测平均沉积速率:**  `{avg_rate_pred:.4e}` nm/s")
     st.markdown("---")
     
     # 预测 1D 沉积速率曲线
@@ -124,7 +124,7 @@ try:
     fig_dep, ax_dep = plt.subplots(figsize=(10, 3))
     ax_dep.plot(coords_dep[:, 0], dep_pred, color='dodgerblue', linewidth=2)
     ax_dep.set_xlabel("Wafer Position (mm)")
-    ax_dep.set_ylabel("Deposition Rate (m/s)")
+    ax_dep.set_ylabel("Deposition Rate (nm/s)")
     ax_dep.grid(True, linestyle='--', alpha=0.6)
     st.pyplot(fig_dep)
     plt.close(fig_dep)
